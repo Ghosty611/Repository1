@@ -1,0 +1,40 @@
+package forloop;
+
+import java.util.Scanner;
+
+public class sumofnaturalnos {
+
+	public static void main(String[] args) {
+		
+		Scanner s = new Scanner(System.in);
+		
+		System.out.println("SUM OF NATURAL NUMBERS\r");
+		
+		System.out.println("Enter the natural number to start from");
+		int number = s.nextInt();
+		int sum = number;
+		
+		for(int i =number; i<=1000; i++) 
+		{
+			sum+=i;
+		}
+		
+		System.out.println("Sum of numbers is "+sum);
+		s.close();
+		
+		int num = 2453;
+		int revnum=0;
+		
+		
+		for (int j=0; j<4; j++) 
+		{
+			
+			int k1 = num%10;                                 // modulus gives the last number reminder which is i
+			revnum = (revnum*10) + k1;                       // multiply the reversed number by 10 plus i to construct number
+			num=num/10; 
+		}
+		
+		System.out.println("Reversed number is "+revnum);
+			
+	}
+}

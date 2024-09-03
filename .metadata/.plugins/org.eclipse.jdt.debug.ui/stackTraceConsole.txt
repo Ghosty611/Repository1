@@ -1,0 +1,5 @@
+java.lang.NullPointerException: Cannot invoke "java.util.Properties.getProperty(String)" because "com.configreader.ConfigReader.p" is null
+	at com.configreader.ConfigReader.getUrl(ConfigReader.java:25)
+	at com.adactinstepdefinition.AdactinStepDef.user_can_able_to_launch_url(AdactinStepDef.java:30)
+	at ?.user Can Able To Launch Url(file:///C:/Users/prasa/eclipse-workspace/Cucumber/src/test/java/com/adactinfeature/adactin.feature:3)
+

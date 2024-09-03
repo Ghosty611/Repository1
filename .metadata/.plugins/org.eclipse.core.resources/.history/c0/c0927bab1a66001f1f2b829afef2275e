@@ -1,0 +1,77 @@
+package com.selenium;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class WindowHandler {
+
+	public static void main(String[] args) throws InterruptedException, AWTException {
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\prasa\\eclipse-workspace\\Selenium\\Drivers\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://www.amazon.in/ref=nav_logo");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		Robot r=new Robot();
+		Actions a=new Actions(driver);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		WebElement mobile = driver.findElement(By.xpath("//a[@href='/mobile-phones/b/?ie=UTF8&node=1389401031&ref_=nav_cs_mobiles']"));
+		a.contextClick(mobile).perform();
+		
+		r.keyPress(KeyEvent.VK_DOWN);
+		r.keyRelease(KeyEvent.VK_DOWN);
+		r.keyPress(KeyEvent.VK_ENTER);
+		r.keyRelease(KeyEvent.VK_ENTER);
+		
+		
+		WebElement electronics = driver.findElement(By.xpath("//a[@href='/electronics/b/?ie=UTF8&node=976419031&ref_=nav_cs_electronics']"));
+		a.contextClick(electronics).perform();
+		
+		r.keyPress(KeyEvent.VK_DOWN);
+		r.keyRelease(KeyEvent.VK_DOWN);
+		r.keyPress(KeyEvent.VK_ENTER);
+		r.keyRelease(KeyEvent.VK_ENTER);
+		
+		WebElement best = driver.findElement(By.xpath("//a[@href='/gp/bestsellers/?ref_=nav_cs_bestsellers']"));
+		a.contextClick(best).perform();
+		
+		r.keyPress(KeyEvent.VK_DOWN);
+		r.keyRelease(KeyEvent.VK_DOWN);
+		r.keyPress(KeyEvent.VK_ENTER);
+		r.keyRelease(KeyEvent.VK_ENTER);
+		
+		String windowHandle = driver.getWindowHandle();                 //THIS IS AMAZON MAIN PAGE 1
+		
+		Set<String> windowHandles = driver.getWindowHandles();
+		for (String amazontabs : windowHandles)
+		{ 
+			driver.switchTo().window(amazontabs);                       //ITR THROUGH REMAINING 3 TABS IN REVERSE
+			Thread.sleep(4000);
+		}
+		
+		driver.switchTo().window(windowHandle);                        // SWITCHING BACK TO AMAZON MAIN PAGE 1    
+		Thread.sleep(5000);
+		
+		// NOW HOW TO GO FROM home page TO 3RD TAB ELECTRONICS??
+		
+		List<String> tabList = new ArrayList<String>(windowHandles);   //NO CONCERN FOR DUPLICATE SINCE WE ARE COPYING FROM SET(SOURCE NON DUPLICATE)
+		driver.switchTo().window(tabList.get(3));
+		System.out.println(driver.getTitle());
+		
+		Thread.sleep(5000);
+		driver.quit();
+	}
+}
